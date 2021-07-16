@@ -1,12 +1,13 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBn9WNe8Zr6RWJRH9hH_XOMiWlZioE3urY",
-  authDomain: "docs-ce63d.firebaseapp.com",
-  projectId: "docs-ce63d",
-  storageBucket: "docs-ce63d.appspot.com",
-  messagingSenderId: "1060073144414",
-  appId: "1:1060073144414:web:ed810ce6d6e8dec3ce34cf",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 // init
