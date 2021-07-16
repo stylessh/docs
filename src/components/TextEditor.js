@@ -4,6 +4,7 @@ import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { useSession } from "next-auth/client";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
+import { useDocumentContext } from "../context/document";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -24,6 +25,8 @@ const TextEditor = ({ doc_id }) => {
       .doc(doc_id)
   );
 
+  const { updateContent } = useDocumentContext();
+
   useEffect(() => {
     if (snapshot?.data()?.editorState) {
       setEditorState(
@@ -31,6 +34,8 @@ const TextEditor = ({ doc_id }) => {
           convertFromRaw(snapshot?.data()?.editorState)
         )
       );
+
+      updateContent(snapshot?.data()?.editorState);
     }
   }, [snapshot]);
 
@@ -51,6 +56,9 @@ const TextEditor = ({ doc_id }) => {
           merge: true,
         }
       );
+
+    // saving local
+    updateContent(convertToRaw(editorState.getCurrentContent()));
   };
 
   return (

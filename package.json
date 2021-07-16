@@ -8,7 +8,9 @@
   "dependencies": {
     "@next-auth/firebase-adapter": "^0.1.2",
     "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
     "firebase": "^8.7.1",
+    "html2pdf.js": "^0.9.3",
     "next": "latest",
     "next-auth": "^3.27.3",
     "react": "^17.0.2",

@@ -10,7 +10,7 @@ const Profile = () => {
       <img
         onClick={() => setOpenDropdown(!openDropdown)}
         loading="lazy"
-        className="cursor-pointer h-10 w-10 rounded-full ml-2 object-cover"
+        className="cursor-pointer h-10 w-10 rounded-full  object-cover"
         src={session?.user.image}
         alt="Avatar"
       />
@@ -29,7 +29,7 @@ const Profile = () => {
               <h3 className="font-bold">{session?.user.email}</h3>
             </div>
             {/* divider */}
-            <div className="h-0.5 w-full bg-gray-200 my-1"></div>
+            <hr class="my-2 mx-4 border-gray-300" />
             <a
               href="#"
               className="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-100 font-display"

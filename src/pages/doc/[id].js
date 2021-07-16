@@ -6,6 +6,7 @@ import { db } from "../../firebase";
 import TextEditor from "../../components/TextEditor";
 import Profile from "../../common/Profile";
 import Head from "../../components/Head";
+import { useDocumentContext } from "../../context/document";
 
 import { BsArrowLeft } from "react-icons/bs";
 import { RiShareForwardLine } from "react-icons/ri";
@@ -24,6 +25,8 @@ const Document = ({ id }) => {
       .collection("docs")
       .doc(id)
   );
+
+  const { downloadPDF } = useDocumentContext();
 
   //   if document doesn't exist
   if (!loadingSnapshot && !snapshot.data()?.file_name) {
@@ -63,8 +66,11 @@ const Document = ({ id }) => {
           </div>
         </div>
 
-        <button className="bg-blue-500 text-white uppercase font-display font-bold px-5 py-2 text-sm mr-5 rounded hover:bg-blue-600 transition ease-in-out transition-100">
-          <RiShareForwardLine size="1.2em" className="inline" /> Share
+        <button
+          className="bg-red-500 text-white uppercase font-display font-bold px-5 py-2 text-sm mr-5 rounded hover:bg-red-600 transition ease-in-out transition-100"
+          onClick={() => downloadPDF(snapshot?.data()?.file_name)}
+        >
+          <RiShareForwardLine size="1.2em" className="inline" /> Export
         </button>
 
         <Profile />
