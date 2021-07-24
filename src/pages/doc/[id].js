@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Login from "../../components/Login";
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -10,6 +11,8 @@ import { useDocumentContext } from "../../context/document";
 
 import { BsArrowLeft } from "react-icons/bs";
 import { RiShareForwardLine } from "react-icons/ri";
+
+import { Grid, Text, Row, Col, Button, Link } from "@geist-ui/react";
 
 const Document = ({ id }) => {
   const [session] = useSession();
@@ -25,6 +28,7 @@ const Document = ({ id }) => {
       .collection("docs")
       .doc(id)
   );
+  const [downloadingPDF, setDownloadingPDF] = useState(false);
 
   const { downloadPDF } = useDocumentContext();
 
@@ -37,44 +41,66 @@ const Document = ({ id }) => {
     <div>
       <Head title={snapshot?.data()?.file_name} />
 
-      <header className="flex justify-between items-center p-3 pb-1">
-        <span className="cursor-pointer" onClick={() => router.push("/")}>
-          <BsArrowLeft size="2em" />
-        </span>
-
-        <div className="flex-grow px-4">
-          <h2 className="font-display font-bold">
-            {snapshot?.data()?.file_name}
-          </h2>
-
-          <div className="flex text-sm items-center space-x-1 -ml-1 h-8">
-            <p className="px-2 cursor-pointer text-gray-600 hover:bg-gray-100 transition ease-in-out transition-200">
-              File
-            </p>
-            <p className="px-2 cursor-pointer text-gray-600 hover:bg-gray-100 transition ease-in-out transition-200">
-              Edit
-            </p>
-            <p className="px-2 cursor-pointer text-gray-600 hover:bg-gray-100 transition ease-in-out transition-200">
-              View
-            </p>
-            <p className="px-2 cursor-pointer text-gray-600 hover:bg-gray-100 transition ease-in-out transition-200">
-              Insert
-            </p>
-            <p className="px-2 cursor-pointer text-gray-600 hover:bg-gray-100 transition ease-in-out transition-200">
-              Tools
-            </p>
-          </div>
-        </div>
-
-        <button
-          className="bg-red-500 text-white uppercase font-display font-bold px-5 py-2 text-sm mr-5 rounded hover:bg-red-600 transition ease-in-out transition-100"
-          onClick={() => downloadPDF(snapshot?.data()?.file_name)}
+      <Row
+        justify="space-between"
+        align="middle"
+        gap={2}
+        style={{ padding: "1em 0" }}
+      >
+        <Col
+          span={1}
+          style={{ cursor: "pointer" }}
+          onClick={() => router.push("/")}
         >
-          <RiShareForwardLine size="1.2em" className="inline" /> Export
-        </button>
+          <BsArrowLeft size="2em" />
+        </Col>
 
-        <Profile />
-      </header>
+        <Col>
+          <Text h1 size="large">
+            {snapshot?.data()?.file_name}
+          </Text>
+
+          <Row style={{ marginLeft: "-.5em" }}>
+            <Link block href="#">
+              File
+            </Link>
+            <Link block href="#">
+              Edit
+            </Link>
+            <Link block href="#">
+              View
+            </Link>
+            <Link block href="#">
+              Insert
+            </Link>
+            <Link block href="#">
+              Tools
+            </Link>
+          </Row>
+        </Col>
+
+        <Col span={4}>
+          <Button
+            size="medium"
+            type="success"
+            icon={<RiShareForwardLine />}
+            onClick={() => {
+              setDownloadingPDF(true);
+              downloadPDF(snapshot?.data()?.file_name);
+              setDownloadingPDF(false);
+            }}
+            style={{ width: "100%" }}
+            loading={downloadingPDF}
+            auto
+          >
+            Export (PDF)
+          </Button>
+        </Col>
+
+        <Col span={4} style={{ textAlign: "center" }}>
+          <Profile />
+        </Col>
+      </Row>
 
       <TextEditor doc_id={id} />
     </div>
