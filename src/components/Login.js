@@ -1,20 +1,25 @@
 import { signIn } from "next-auth/client";
 import { HiOutlineDocumentText } from "react-icons/hi";
 
+import { Row, Button, Text, Col } from "@geist-ui/react";
+
 const Login = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-gray-700">
-      <HiOutlineDocumentText size="8em" />
+    <Row
+      justify="center"
+      align="middle"
+      style={{ height: "100vh", width: "100vw" }}
+    >
+      <Col style={{ textAlign: "center" }}>
+        <HiOutlineDocumentText size="6em" />
 
-      <h1 className="text-gray-700 font-display font-bold text-2xl">Docs</h1>
+        <Text h1>Docs</Text>
 
-      <button
-        className="bg-blue-600 text-white px-8 py-2 my-5 rounded-lg font-display font-bold hover:bg-blue-700 drop-shadow-lg"
-        onClick={signIn}
-      >
-        Login
-      </button>
-    </div>
+        <Button type="success" ghost auto onClick={signIn}>
+          Login
+        </Button>
+      </Col>
+    </Row>
   );
 };
 

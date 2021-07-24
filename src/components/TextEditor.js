@@ -62,12 +62,26 @@ const TextEditor = ({ doc_id }) => {
   };
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen pb-16">
+    <div style={{ minHeight: "100vh", paddingBottom: "2em" }}>
       <Editor
         editorState={editorState}
         onEditorStateChange={handleEditor}
-        toolbarClassName="flex sticky top-0 z-20 !justify-center mx-auto"
-        editorClassName="mt-16 bg-white shadow-md max-w-6xl mx-auto min-h-screen py-10 px-20 border cursor-text"
+        toolbarStyle={{
+          display: "flex",
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
+          justifyContent: 'center'
+        }}
+        editorStyle={{
+          minHeight: "100vh",
+          width: "85%",
+          margin: "0 auto",
+          marginTop: "2em",
+          border: "1px solid #ccc",
+          padding: "2em 2.5em",
+          cursor: 'text'
+        }}
       />
     </div>
   );

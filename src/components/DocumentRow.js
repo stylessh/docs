@@ -1,24 +1,27 @@
 import { useRouter } from "next/router";
-import { HiOutlineDocumentText, HiOutlineDotsVertical } from "react-icons/hi";
+import { HiDotsVertical } from "react-icons/hi";
+import { Card, Grid, Text } from "@geist-ui/react";
 
 const DocumentRow = ({ id, data }) => {
   const router = useRouter();
 
   return (
-    <div
-      className="flex items-center cursor-pointer hover:bg-gray-100 p-4 rounded-lg"
-      onClick={() => router.push(`/doc/${id}`)}
-    >
-      <HiOutlineDocumentText size="2em" />
-      <h3 className="flex-grow pl-5 w-10 pr-10 truncate font-body">
-        {data.file_name}
-      </h3>
-      <p className="pr-5 text-sm text-gray font-body">
-        {data.timestamp.toDate().toLocaleDateString()}
-      </p>
+    <Card hoverable style={{ marginBottom: "1em", cursor: "pointer" }}>
+      <Grid.Container onClick={() => router.push(`/doc/${id}`)}>
+        <Grid md={12} alignItems="center">
+          <Text h4 size="medium">
+            {data.file_name}  
+          </Text>
+        </Grid>
+        <Grid md={6} alignItems="center" justify="flex-end">
+          <Text p>{data.timestamp.toDate().toLocaleDateString()}</Text>
+        </Grid>
 
-      <HiOutlineDotsVertical size="2em" />
-    </div>
+        <Grid md={6} alignItems="center" justify="flex-end">
+          <HiDotsVertical size="1em" />
+        </Grid>
+      </Grid.Container>
+    </Card>
   );
 };
 
