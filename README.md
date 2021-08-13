@@ -3,7 +3,7 @@
 ### Docs is an open source document writer.
 
 
-Created with **React.js**, **Next.js**, **Firebase** and **Tailwind**.
+Created with **React.js**, **Next.js**, **Firebase** and **Geist UI**.
 
 
 ## Usage
